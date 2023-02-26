@@ -110,10 +110,10 @@ public class LectionForm {
             }
         });
 
-        courseComboBox.addActionListener(new ActionListener() {
+        lectionNumComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                classroomComboBox.removeAllItems();
                 String day = dayComboBox.getSelectedItem().toString();
                 Integer lNum = (Integer) lectionNumComboBox.getSelectedItem();
                 String hql = "FROM Classroom WHERE classroomName NOT IN (SELECT classroom " +

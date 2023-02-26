@@ -25,6 +25,18 @@ public class ComboBoxService {
         }
     }
 
+    public static void updateComboBoxTeacher(JComboBox disciplineCB, JComboBox updateComboBox) {
+        updateComboBox.removeAllItems();
+        String discipline = (String) disciplineCB.getSelectedItem();
+        String hql = "FROM Teacher WHERE discipline = '" + discipline + "'";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Teacher> list = session.createQuery(hql).getResultList();
+        for (Teacher t : list) {
+            updateComboBox.addItem(t.getFio());
+        }
+        session.close();
+    }
+
     public static void updateComboBoxDiscipline(JComboBox comboBox) {
         comboBox.removeAllItems();
         for (Discipline d : getDisciplineCriteriaQueryList()) {
@@ -47,7 +59,7 @@ public class ComboBoxService {
         specialty.setText("");
         kolStudent.setText("");
         String facultyCB = (String)groupFacultyCB.getSelectedItem();
-        String hqlComboBoxes = "from StudentGroup where faculty = " + "'" + facultyCB + "'";
+        String hqlComboBoxes = "from StudentGroup where faculty = '" + facultyCB + "'";
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<StudentGroup> groupList = session.createQuery(hqlComboBoxes).getResultList();
         for (StudentGroup s : groupList) {

@@ -21,12 +21,13 @@ public class SecondForm extends JFrame {
     private JComboBox facultyComboBox;
     private JButton addFacultyButton;
     private JButton removeFacultyButton;
-    private JComboBox teacherComboBox;
-    private JButton addTeacherButton;
-    private JButton removeTeacherButton;
     private JComboBox disciplineComboBox;
     private JButton addDisciplineButton;
     private JButton removeDisciplineButton;
+    private JComboBox teacherComboBox;
+    private JComboBox cbDiscipline;
+    private JButton addDisciplineAndTeacherButton;
+    private JButton removeDisciplineAndTeacherButton;
     private JComboBox classroomComboBox;
     private JTextField tfUniversityBuilding;
     private JTextField tfNumberOfSeats;
@@ -44,8 +45,9 @@ public class SecondForm extends JFrame {
 
     public SecondForm() {
         updateComboBoxFaculty(facultyComboBox);
-        updateComboBoxTeacher(teacherComboBox);
         updateComboBoxDiscipline(disciplineComboBox);
+        updateComboBoxDiscipline(cbDiscipline);
+        updateComboBoxTeacher(teacherComboBox);
         updateComboBoxClassroom(classroomComboBox, tfUniversityBuilding, tfNumberOfSeats);
         updateComboBoxFaculty(cbGroupFaculty);
         initialCourseAndSemestrComboBox(cbCourse, cbSemestr);
@@ -62,6 +64,7 @@ public class SecondForm extends JFrame {
 
                 transaction.commit();
                 updateComboBoxFaculty(facultyComboBox);
+                updateComboBoxFaculty(cbGroupFaculty);
                 session.close();
             }
         });
@@ -78,38 +81,7 @@ public class SecondForm extends JFrame {
 
                 transaction.commit();
                 updateComboBoxFaculty(facultyComboBox);
-                session.close();
-            }
-        });
-
-        addTeacherButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
-
-                String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
-                Teacher teacher = new Teacher(comboBoxTeacher);
-                session.saveOrUpdate(teacher);
-
-                transaction.commit();
-                updateComboBoxTeacher(teacherComboBox);
-                session.close();
-            }
-        });
-
-        removeTeacherButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
-
-                String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
-                Teacher teacher = new Teacher(comboBoxTeacher);
-                session.delete(teacher);
-
-                transaction.commit();
-                updateComboBoxTeacher(teacherComboBox);
+                updateComboBoxFaculty(cbGroupFaculty);
                 session.close();
             }
         });
@@ -126,6 +98,7 @@ public class SecondForm extends JFrame {
 
                 transaction.commit();
                 updateComboBoxDiscipline(disciplineComboBox);
+                updateComboBoxDiscipline(cbDiscipline);
                 session.close();
             }
         });
@@ -142,7 +115,49 @@ public class SecondForm extends JFrame {
 
                 transaction.commit();
                 updateComboBoxDiscipline(disciplineComboBox);
+                updateComboBoxDiscipline(cbDiscipline);
                 session.close();
+            }
+        });
+
+        addDisciplineAndTeacherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Transaction transaction = session.beginTransaction();
+
+                String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
+                Discipline discipline = session.get(Discipline.class, cbDiscipline.getSelectedItem());
+                Teacher teacher = new Teacher(comboBoxTeacher, discipline);
+                session.saveOrUpdate(teacher);
+
+                transaction.commit();
+                teacherComboBox.removeAllItems();
+                session.close();
+            }
+        });
+
+        removeDisciplineAndTeacherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Transaction transaction = session.beginTransaction();
+
+                String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
+                Discipline discipline = session.get(Discipline.class, cbDiscipline.getSelectedItem());
+                Teacher teacher = new Teacher(comboBoxTeacher, discipline);
+                session.delete(teacher);
+
+                transaction.commit();
+                teacherComboBox.removeAllItems();
+                session.close();
+            }
+        });
+
+        cbDiscipline.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateComboBoxTeacher(cbDiscipline, teacherComboBox);
             }
         });
 
