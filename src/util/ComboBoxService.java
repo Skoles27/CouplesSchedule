@@ -18,6 +18,13 @@ public class ComboBoxService {
         }
     }
 
+    public static void updateComboBoxDiscipline(JComboBox comboBox) {
+        comboBox.removeAllItems();
+        for (Discipline d : getDisciplineCriteriaQueryList()) {
+            comboBox.addItem(d.getDisciplineName());
+        }
+    }
+
     public static void updateComboBoxTeacher(JComboBox comboBox) {
         comboBox.removeAllItems();
         for (Teacher t : getTeacherCriteriaQueryList()) {
@@ -35,13 +42,6 @@ public class ComboBoxService {
             updateComboBox.addItem(t.getFio());
         }
         session.close();
-    }
-
-    public static void updateComboBoxDiscipline(JComboBox comboBox) {
-        comboBox.removeAllItems();
-        for (Discipline d : getDisciplineCriteriaQueryList()) {
-            comboBox.addItem(d.getDisciplineName());
-        }
     }
 
     public static void updateComboBoxClassroom(JComboBox classroomCB, JTextField universityBuilding, JTextField numberOfSeats) {

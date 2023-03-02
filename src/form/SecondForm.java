@@ -47,7 +47,7 @@ public class SecondForm extends JFrame {
         updateComboBoxFaculty(facultyComboBox);
         updateComboBoxDiscipline(disciplineComboBox);
         updateComboBoxDiscipline(cbDiscipline);
-        updateComboBoxTeacher(teacherComboBox);
+        updateComboBoxTeacher(cbDiscipline, teacherComboBox);
         updateComboBoxClassroom(classroomComboBox, tfUniversityBuilding, tfNumberOfSeats);
         updateComboBoxFaculty(cbGroupFaculty);
         initialCourseAndSemestrComboBox(cbCourse, cbSemestr);
@@ -132,7 +132,7 @@ public class SecondForm extends JFrame {
                 session.saveOrUpdate(teacher);
 
                 transaction.commit();
-                teacherComboBox.removeAllItems();
+                updateComboBoxTeacher(cbDiscipline, teacherComboBox);
                 session.close();
             }
         });
@@ -149,7 +149,7 @@ public class SecondForm extends JFrame {
                 session.delete(teacher);
 
                 transaction.commit();
-                teacherComboBox.removeAllItems();
+                updateComboBoxTeacher(cbDiscipline, teacherComboBox);
                 session.close();
             }
         });
