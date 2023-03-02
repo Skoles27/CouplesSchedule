@@ -1,16 +1,10 @@
 package form;
 
-import entity.*;
-import org.hibernate.Session;
-import util.HibernateUtil;
-import util.LectureComparator;
-import util.TableView;
+import util.TableOperation;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-import java.util.List;
 
 import static util.ComboBoxService.updateComboBoxFaculty;
 
@@ -22,8 +16,6 @@ public class MainForm extends JFrame {
     private JComboBox facultyComboBox;
     private JComboBox courseComboBox;
     private JComboBox groupComboBox;
-    private String facultyCB;
-
 
     public static void main(String[] args) {
         JFrame mainFrame = new JFrame();
@@ -90,58 +82,21 @@ public class MainForm extends JFrame {
         selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String faculty = (String)facultyComboBox.getSelectedItem();
-                Integer course = (Integer)courseComboBox.getSelectedItem();
-                String group = (String)groupComboBox.getSelectedItem();
-
-                String hql = "FROM Lecture JOIN StudentGroup ON studentGroup = groupName " +
-                        "WHERE faculty = " + "'" + faculty + "'" + " AND " + "course = " + "'" + course + "'" +
-                        " AND " + "studentGroup = " + "'" + group + "'";
-
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                List<Lecture> lectures = session.createQuery(hql).getResultList();
-                Comparator<entity.Lecture> comparator = new LectureComparator();
-                lectures.sort(comparator);
-                TableView tableView = new TableView(lectures);
-                scheduleTable.setModel(tableView);
-                session.close();
+                TableOperation.displayData(facultyComboBox, courseComboBox, groupComboBox, scheduleTable);
             }
         });
 
         facultyComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                facultyCB = (String)facultyComboBox.getSelectedItem();
-                String hqlComboBoxes = "from StudentGroup where faculty = " + "'" + facultyCB + "'";
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                List<StudentGroup> groups = session.createQuery(hqlComboBoxes).getResultList();
-
-                courseComboBox.removeAllItems();
-                Set<Integer> course = new LinkedHashSet<>();
-                for (StudentGroup s : groups) {
-                    course.add(s.getCourse());
-                }
-                for (Integer i : course) {
-                    courseComboBox.addItem(i);
-                }
-                session.close();
+                TableOperation.selectFaculty(facultyComboBox, courseComboBox);
             }
         });
 
         courseComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                groupComboBox.removeAllItems();
-                Integer courseCB = (Integer)courseComboBox.getSelectedItem();
-                String hqlComboBoxes = "from StudentGroup where faculty = " + "'" + facultyCB + "'" + " and "
-                        + "course = " + "'" + courseCB + "'";
-
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                List<StudentGroup> groups = session.createQuery(hqlComboBoxes).getResultList();
-                for (StudentGroup s : groups) {
-                    groupComboBox.addItem(s.getGroupName());
-                }
-                session.close();
+                TableOperation.selectCourse(facultyComboBox, courseComboBox, groupComboBox);
             }
         });
     }

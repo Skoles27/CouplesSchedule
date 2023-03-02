@@ -9,11 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import static util.ComboBoxService.*;
+import static util.TableOperation.*;
 
 public class LectionForm {
     protected JPanel mainPanel;
@@ -34,10 +33,10 @@ public class LectionForm {
     private JButton removeButton;
     private JTable table;
     private JLabel infoLabel;
-    private String facultyCB;
 
     public LectionForm() {
         updateComboBoxFaculty(facultyComboBox);
+        updateComboBoxFaculty(delFacultyComboBox);
         updateComboBoxDiscipline(disciplineComboBox);
         initialDayComboBox(dayComboBox);
         initialNumComboBox(lectionNumComboBox);
@@ -92,38 +91,14 @@ public class LectionForm {
         facultyComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                facultyCB = (String)facultyComboBox.getSelectedItem();
-                String hqlComboBoxes = "from StudentGroup where faculty = " + "'" + facultyCB + "'";
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                List<StudentGroup> groups = session.createQuery(hqlComboBoxes).getResultList();
-
-                courseComboBox.removeAllItems();
-                Set<Integer> course = new LinkedHashSet<>();
-                for (StudentGroup s : groups) {
-                    course.add(s.getCourse());
-                }
-                for (Integer i : course) {
-                    courseComboBox.addItem(i);
-                }
-                infoLabel.setVisible(false);
-                session.close();
+                selectFaculty(facultyComboBox, courseComboBox);
             }
         });
 
         courseComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                groupComboBox.removeAllItems();
-                Integer courseCB = (Integer)courseComboBox.getSelectedItem();
-                String hqlComboBoxes = "from StudentGroup where faculty = " + "'" + facultyCB + "'" + " and "
-                        + "course = " + "'" + courseCB + "'";
-
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                List<StudentGroup> groups = session.createQuery(hqlComboBoxes).getResultList();
-                for (StudentGroup s : groups) {
-                    groupComboBox.addItem(s.getGroupName());
-                }
-                session.close();
+                selectCourse(facultyComboBox, courseComboBox, groupComboBox);
             }
         });
 
@@ -149,6 +124,34 @@ public class LectionForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateComboBoxTeacher(disciplineComboBox, teacherComboBox);
+            }
+        });
+
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        selectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayData(delFacultyComboBox, delCourseComboBox, delGroupComboBox, table);
+            }
+        });
+
+        delFacultyComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectFaculty(delFacultyComboBox, delCourseComboBox);
+            }
+        });
+
+        delCourseComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectCourse(delFacultyComboBox, delCourseComboBox, delGroupComboBox);
             }
         });
     }
