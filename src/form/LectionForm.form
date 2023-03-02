@@ -44,18 +44,24 @@
           </component>
           <component id="3cc7b" class="javax.swing.JComboBox" binding="facultyComboBox">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="fd0bd" class="javax.swing.JComboBox" binding="courseComboBox">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="80648" class="javax.swing.JLabel">
@@ -76,10 +82,13 @@
           </component>
           <component id="f5b89" class="javax.swing.JComboBox" binding="groupComboBox">
             <constraints>
-              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="390f9" class="javax.swing.JLabel">
@@ -92,10 +101,13 @@
           </component>
           <component id="b614f" class="javax.swing.JComboBox" binding="dayComboBox">
             <constraints>
-              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="711b2" class="javax.swing.JLabel">
@@ -108,26 +120,35 @@
           </component>
           <component id="ce081" class="javax.swing.JComboBox" binding="lectionNumComboBox">
             <constraints>
-              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="98c00" class="javax.swing.JComboBox" binding="classroomComboBox">
             <constraints>
-              <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="9e2a8" class="javax.swing.JComboBox" binding="disciplineComboBox">
             <constraints>
-              <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="d9ed2" class="javax.swing.JLabel">
@@ -164,10 +185,13 @@
           </component>
           <component id="3edfd" class="javax.swing.JComboBox" binding="teacherComboBox">
             <constraints>
-              <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="130" height="25"/>
+                <preferred-size width="130" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="f8602" class="javax.swing.JLabel">
@@ -176,6 +200,15 @@
             </constraints>
             <properties>
               <text value="Преподаватель:"/>
+            </properties>
+          </component>
+          <component id="9cef6" class="javax.swing.JLabel" binding="infoLabel">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Label"/>
+              <visible value="false"/>
             </properties>
           </component>
         </children>
@@ -198,10 +231,13 @@
           </component>
           <component id="bce80" class="javax.swing.JComboBox" binding="delFacultyComboBox">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="280" height="25"/>
+                <preferred-size width="280" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="8dced" class="javax.swing.JLabel">
@@ -214,10 +250,13 @@
           </component>
           <component id="ecea5" class="javax.swing.JComboBox" binding="delCourseComboBox">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="280" height="25"/>
+                <preferred-size width="280" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="e4935" class="javax.swing.JLabel">
@@ -230,10 +269,13 @@
           </component>
           <component id="6609f" class="javax.swing.JComboBox" binding="delGroupComboBox">
             <constraints>
-              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="280" height="25"/>
+                <preferred-size width="280" height="25"/>
+              </grid>
             </constraints>
             <properties>
-              <editable value="true"/>
+              <editable value="false"/>
             </properties>
           </component>
           <component id="66abc" class="javax.swing.JLabel">

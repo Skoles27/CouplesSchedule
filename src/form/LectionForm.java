@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedHashSet;
@@ -32,10 +33,12 @@ public class LectionForm {
     private JButton selectButton;
     private JButton removeButton;
     private JTable table;
+    private JLabel infoLabel;
     private String facultyCB;
 
     public LectionForm() {
         updateComboBoxFaculty(facultyComboBox);
+        updateComboBoxDiscipline(disciplineComboBox);
         initialDayComboBox(dayComboBox);
         initialNumComboBox(lectionNumComboBox);
 
@@ -65,10 +68,23 @@ public class LectionForm {
                     timeStart = "14:40";
                 }
 
-                Lecture lecture = new Lecture(group, day, lNum, timeStart, classroom, discipline, teacher);
-                session.saveOrUpdate(lecture);
+                boolean exists = session.createQuery("from Lecture where dayOfTheWeek = '" + day +
+                        "' AND lectureNumber = " + lNum).setMaxResults(1).uniqueResult() != null;
 
-                transaction.commit();
+                if (exists) {
+                    infoLabel.setText("Ошибка: Лекция в этот день и номер пары уже существует!");
+                    Color color = new Color(0xB20700);
+                    infoLabel.setForeground(color);
+                    infoLabel.setVisible(true);
+                } else {
+                    Lecture lecture = new Lecture(group, day, lNum, timeStart, classroom, discipline, teacher);
+                    session.saveOrUpdate(lecture);
+                    transaction.commit();
+                    infoLabel.setText("Лекция успешно добавлена!");
+                    Color color = new Color(0x009802);
+                    infoLabel.setForeground(color);
+                    infoLabel.setVisible(true);
+                }
                 session.close();
             }
         });
@@ -89,6 +105,7 @@ public class LectionForm {
                 for (Integer i : course) {
                     courseComboBox.addItem(i);
                 }
+                infoLabel.setVisible(false);
                 session.close();
             }
         });
@@ -125,6 +142,13 @@ public class LectionForm {
                     classroomComboBox.addItem(c.getClassroomName());
                 }
                 session.close();
+            }
+        });
+
+        disciplineComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateComboBoxTeacher(disciplineComboBox, teacherComboBox);
             }
         });
     }
