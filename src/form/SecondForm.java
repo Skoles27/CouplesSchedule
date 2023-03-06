@@ -55,102 +55,126 @@ public class SecondForm extends JFrame {
         addFacultyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxFaculty = facultyComboBox.getSelectedItem().toString();
-                Faculty faculty = new Faculty(comboBoxFaculty);
-                session.saveOrUpdate(faculty);
+                    String comboBoxFaculty = facultyComboBox.getSelectedItem().toString();
+                    Faculty faculty = new Faculty(comboBoxFaculty);
+                    session.saveOrUpdate(faculty);
 
-                transaction.commit();
-                updateComboBoxFaculty(facultyComboBox);
-                updateComboBoxFaculty(cbGroupFaculty);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxFaculty(facultyComboBox);
+                    updateComboBoxFaculty(cbGroupFaculty);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Неправильный формат ввода\n" + ex.getMessage());
+                }
             }
         });
 
         removeFacultyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxFaculty = facultyComboBox.getSelectedItem().toString();
-                Faculty faculty = new Faculty(comboBoxFaculty);
-                session.delete(faculty);
+                    String comboBoxFaculty = facultyComboBox.getSelectedItem().toString();
+                    Faculty faculty = new Faculty(comboBoxFaculty);
+                    session.delete(faculty);
 
-                transaction.commit();
-                updateComboBoxFaculty(facultyComboBox);
-                updateComboBoxFaculty(cbGroupFaculty);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxFaculty(facultyComboBox);
+                    updateComboBoxFaculty(cbGroupFaculty);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Нет элементов для удаления\n" + ex.getMessage());
+                }
             }
         });
 
         addDisciplineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxDiscipline = disciplineComboBox.getSelectedItem().toString();
-                Discipline discipline = new Discipline(comboBoxDiscipline);
-                session.saveOrUpdate(discipline);
+                    String comboBoxDiscipline = disciplineComboBox.getSelectedItem().toString();
+                    Discipline discipline = new Discipline(comboBoxDiscipline);
+                    session.saveOrUpdate(discipline);
 
-                transaction.commit();
-                updateComboBoxDiscipline(disciplineComboBox);
-                updateComboBoxDiscipline(cbDiscipline);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxDiscipline(disciplineComboBox);
+                    updateComboBoxDiscipline(cbDiscipline);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Неправильный формат ввода\n" + ex.getMessage());
+                }
             }
         });
 
         removeDisciplineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxDiscipline = disciplineComboBox.getSelectedItem().toString();
-                Discipline discipline = new Discipline(comboBoxDiscipline);
-                session.delete(discipline);
+                    String comboBoxDiscipline = disciplineComboBox.getSelectedItem().toString();
+                    Discipline discipline = new Discipline(comboBoxDiscipline);
+                    session.delete(discipline);
 
-                transaction.commit();
-                updateComboBoxDiscipline(disciplineComboBox);
-                updateComboBoxDiscipline(cbDiscipline);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxDiscipline(disciplineComboBox);
+                    updateComboBoxDiscipline(cbDiscipline);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Нет элементов для удаления\n" + ex.getMessage());
+                }
             }
         });
 
         addDisciplineAndTeacherButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
-                Discipline discipline = session.get(Discipline.class, cbDiscipline.getSelectedItem());
-                Teacher teacher = new Teacher(comboBoxTeacher, discipline);
-                session.saveOrUpdate(teacher);
+                    String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
+                    Discipline discipline = session.get(Discipline.class, cbDiscipline.getSelectedItem());
+                    Teacher teacher = new Teacher(comboBoxTeacher, discipline);
+                    session.saveOrUpdate(teacher);
 
-                transaction.commit();
-                updateComboBoxTeacher(cbDiscipline, teacherComboBox);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxTeacher(cbDiscipline, teacherComboBox);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Неправильный формат ввода\n" + ex.getMessage());
+                }
             }
         });
 
         removeDisciplineAndTeacherButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
-                Discipline discipline = session.get(Discipline.class, cbDiscipline.getSelectedItem());
-                Teacher teacher = new Teacher(comboBoxTeacher, discipline);
-                session.delete(teacher);
+                    String comboBoxTeacher = teacherComboBox.getSelectedItem().toString();
+                    Discipline discipline = session.get(Discipline.class, cbDiscipline.getSelectedItem());
+                    Teacher teacher = new Teacher(comboBoxTeacher, discipline);
+                    session.delete(teacher);
 
-                transaction.commit();
-                updateComboBoxTeacher(cbDiscipline, teacherComboBox);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxTeacher(cbDiscipline, teacherComboBox);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Нет элементов для удаления\n" + ex.getMessage());
+                }
             }
         });
 
@@ -164,38 +188,46 @@ public class SecondForm extends JFrame {
         addClassroomButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxClassroom = classroomComboBox.getSelectedItem().toString();
-                String universityBuilding = tfUniversityBuilding.getText();
-                int numberOfSeats = Integer.parseInt(tfNumberOfSeats.getText());
+                    String comboBoxClassroom = classroomComboBox.getSelectedItem().toString();
+                    String universityBuilding = tfUniversityBuilding.getText();
+                    int numberOfSeats = Integer.parseInt(tfNumberOfSeats.getText());
 
-                Classroom classroom = new Classroom(comboBoxClassroom, universityBuilding, numberOfSeats);
-                session.saveOrUpdate(classroom);
+                    Classroom classroom = new Classroom(comboBoxClassroom, universityBuilding, numberOfSeats);
+                    session.saveOrUpdate(classroom);
 
-                transaction.commit();
-                updateComboBoxClassroom(classroomComboBox, tfUniversityBuilding, tfNumberOfSeats);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxClassroom(classroomComboBox, tfUniversityBuilding, tfNumberOfSeats);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Неправильный формат ввода\n" + ex.getMessage());
+                }
             }
         });
 
         removeClassroomButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxClassroom = classroomComboBox.getSelectedItem().toString();
-                String universityBuilding = tfUniversityBuilding.getText();
-                int numberOfSeats = Integer.parseInt(tfNumberOfSeats.getText());
+                    String comboBoxClassroom = classroomComboBox.getSelectedItem().toString();
+                    String universityBuilding = tfUniversityBuilding.getText();
+                    int numberOfSeats = Integer.parseInt(tfNumberOfSeats.getText());
 
-                Classroom classroom = new Classroom(comboBoxClassroom, universityBuilding, numberOfSeats);
-                session.delete(classroom);
+                    Classroom classroom = new Classroom(comboBoxClassroom, universityBuilding, numberOfSeats);
+                    session.delete(classroom);
 
-                transaction.commit();
-                updateComboBoxClassroom(classroomComboBox, tfUniversityBuilding, tfNumberOfSeats);
-                session.close();
+                    transaction.commit();
+                    updateComboBoxClassroom(classroomComboBox, tfUniversityBuilding, tfNumberOfSeats);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Нет элементов для удаления\n" + ex.getMessage());
+                }
             }
         });
 
@@ -222,46 +254,54 @@ public class SecondForm extends JFrame {
         addGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxStudentGroup = groupComboBox.getSelectedItem().toString();
-                int comboBoxCourse = Integer.parseInt(cbCourse.getSelectedItem().toString());
-                int comboBoxSemester = Integer.parseInt(cbSemestr.getSelectedItem().toString());
-                Faculty comboBoxFaculty = session.get(Faculty.class, cbGroupFaculty.getSelectedItem());
-                String specialty = tfSpecialty.getText();
-                int kolStudent = Integer.parseInt(tfKolStudent.getText());
+                    String comboBoxStudentGroup = groupComboBox.getSelectedItem().toString();
+                    int comboBoxCourse = Integer.parseInt(cbCourse.getSelectedItem().toString());
+                    int comboBoxSemester = Integer.parseInt(cbSemestr.getSelectedItem().toString());
+                    Faculty comboBoxFaculty = session.get(Faculty.class, cbGroupFaculty.getSelectedItem());
+                    String specialty = tfSpecialty.getText();
+                    int kolStudent = Integer.parseInt(tfKolStudent.getText());
 
-                StudentGroup studentGroup = new StudentGroup(comboBoxStudentGroup, comboBoxCourse, comboBoxSemester,
-                        comboBoxFaculty, specialty, kolStudent);
-                session.saveOrUpdate(studentGroup);
+                    StudentGroup studentGroup = new StudentGroup(comboBoxStudentGroup, comboBoxCourse, comboBoxSemester,
+                            comboBoxFaculty, specialty, kolStudent);
+                    session.saveOrUpdate(studentGroup);
 
-                transaction.commit();
-                groups = updateComboBoxGroup(groupComboBox, cbGroupFaculty, tfSpecialty, tfKolStudent);
-                session.close();
+                    transaction.commit();
+                    groups = updateComboBoxGroup(groupComboBox, cbGroupFaculty, tfSpecialty, tfKolStudent);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Неправильный формат ввода\n" + ex.getMessage());
+                }
             }
         });
 
         removeGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                String comboBoxStudentGroup = groupComboBox.getSelectedItem().toString();
-                int comboBoxCourse = Integer.parseInt(cbCourse.getSelectedItem().toString());
-                int comboBoxSemester = Integer.parseInt(cbSemestr.getSelectedItem().toString());
-                Faculty comboBoxFaculty = session.get(Faculty.class, cbGroupFaculty.getSelectedItem());
-                String specialty = tfSpecialty.getText();
-                int kolStudent = Integer.parseInt(tfKolStudent.getText());
+                    String comboBoxStudentGroup = groupComboBox.getSelectedItem().toString();
+                    int comboBoxCourse = Integer.parseInt(cbCourse.getSelectedItem().toString());
+                    int comboBoxSemester = Integer.parseInt(cbSemestr.getSelectedItem().toString());
+                    Faculty comboBoxFaculty = session.get(Faculty.class, cbGroupFaculty.getSelectedItem());
+                    String specialty = tfSpecialty.getText();
+                    int kolStudent = Integer.parseInt(tfKolStudent.getText());
 
-                StudentGroup studentGroup = new StudentGroup(comboBoxStudentGroup, comboBoxCourse, comboBoxSemester,
-                        comboBoxFaculty, specialty, kolStudent);
-                session.delete(studentGroup);
+                    StudentGroup studentGroup = new StudentGroup(comboBoxStudentGroup, comboBoxCourse, comboBoxSemester,
+                            comboBoxFaculty, specialty, kolStudent);
+                    session.delete(studentGroup);
 
-                transaction.commit();
-                groups = updateComboBoxGroup(groupComboBox, cbGroupFaculty, tfSpecialty, tfKolStudent);
-                session.close();
+                    transaction.commit();
+                    groups = updateComboBoxGroup(groupComboBox, cbGroupFaculty, tfSpecialty, tfKolStudent);
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Нет элементов для удаления\n" + ex.getMessage());
+                }
             }
         });
 
@@ -279,7 +319,6 @@ public class SecondForm extends JFrame {
                 for (StudentGroup s : groups) {
                     groupName.add(s.getGroupName());
                 }
-
                 int index = groupName.indexOf(groupComboBox.getSelectedItem());
                 if (index == -1) {
                     tfUniversityBuilding.setText("");

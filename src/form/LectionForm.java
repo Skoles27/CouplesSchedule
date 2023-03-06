@@ -17,7 +17,7 @@ import static util.TableOperation.*;
 public class LectionForm {
     protected JPanel mainPanel;
     protected JButton backButton;
-    private JComboBox facultyComboBox;
+    protected JComboBox facultyComboBox;
     private JComboBox courseComboBox;
     private JComboBox groupComboBox;
     private JComboBox dayComboBox;
@@ -25,7 +25,7 @@ public class LectionForm {
     private JComboBox classroomComboBox;
     private JComboBox disciplineComboBox;
     private JComboBox teacherComboBox;
-    private JComboBox delFacultyComboBox;
+    protected JComboBox delFacultyComboBox;
     private JComboBox delCourseComboBox;
     private JComboBox delGroupComboBox;
     private JButton addButton;
@@ -44,47 +44,51 @@ public class LectionForm {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                StudentGroup group = session.get(StudentGroup.class, groupComboBox.getSelectedItem());
-                Classroom classroom = session.get(Classroom.class, classroomComboBox.getSelectedItem());
-                String day = dayComboBox.getSelectedItem().toString();
-                int lNum = Integer.parseInt(lectionNumComboBox.getSelectedItem().toString());
-                Discipline discipline = session.get(Discipline.class, disciplineComboBox.getSelectedItem());
-                Teacher teacher = session.get(Teacher.class, teacherComboBox.getSelectedItem());
+                    StudentGroup group = session.get(StudentGroup.class, groupComboBox.getSelectedItem());
+                    Classroom classroom = session.get(Classroom.class, classroomComboBox.getSelectedItem());
+                    String day = dayComboBox.getSelectedItem().toString();
+                    int lNum = Integer.parseInt(lectionNumComboBox.getSelectedItem().toString());
+                    Discipline discipline = session.get(Discipline.class, disciplineComboBox.getSelectedItem());
+                    Teacher teacher = session.get(Teacher.class, teacherComboBox.getSelectedItem());
 
-                String timeStart;
-                if (lNum == 1) {
-                    timeStart = "8:30";
-                } else if (lNum == 2) {
-                    timeStart = "10:00";
-                } else if (lNum == 3) {
-                    timeStart = "11:40";
-                } else if (lNum == 4) {
-                    timeStart = "13:10";
-                } else {
-                    timeStart = "14:40";
+                    String timeStart;
+                    if (lNum == 1) {
+                        timeStart = "8:30";
+                    } else if (lNum == 2) {
+                        timeStart = "10:00";
+                    } else if (lNum == 3) {
+                        timeStart = "11:40";
+                    } else if (lNum == 4) {
+                        timeStart = "13:10";
+                    } else {
+                        timeStart = "14:40";
+                    }
+
+                    boolean exists = session.createQuery("from Lecture where dayOfTheWeek = '" + day +
+                            "' AND lectureNumber = " + lNum).setMaxResults(1).uniqueResult() != null;
+
+                    if (exists) {
+                        infoLabel.setText("Ошибка: Лекция в этот день и номер пары уже существует!");
+                        Color color = new Color(0xB20700);
+                        infoLabel.setForeground(color);
+                        infoLabel.setVisible(true);
+                    } else {
+                        Lecture lecture = new Lecture(group, day, lNum, timeStart, classroom, discipline, teacher);
+                        session.saveOrUpdate(lecture);
+                        transaction.commit();
+                        infoLabel.setText("Лекция успешно добавлена!");
+                        Color color = new Color(0x009802);
+                        infoLabel.setForeground(color);
+                        infoLabel.setVisible(true);
+                    }
+                    session.close();
+                } catch (Exception ex) {
+                    System.err.println("Неправильный формат ввода\n" + ex.getMessage());
                 }
-
-                boolean exists = session.createQuery("from Lecture where dayOfTheWeek = '" + day +
-                        "' AND lectureNumber = " + lNum).setMaxResults(1).uniqueResult() != null;
-
-                if (exists) {
-                    infoLabel.setText("Ошибка: Лекция в этот день и номер пары уже существует!");
-                    Color color = new Color(0xB20700);
-                    infoLabel.setForeground(color);
-                    infoLabel.setVisible(true);
-                } else {
-                    Lecture lecture = new Lecture(group, day, lNum, timeStart, classroom, discipline, teacher);
-                    session.saveOrUpdate(lecture);
-                    transaction.commit();
-                    infoLabel.setText("Лекция успешно добавлена!");
-                    Color color = new Color(0x009802);
-                    infoLabel.setForeground(color);
-                    infoLabel.setVisible(true);
-                }
-                session.close();
             }
         });
 
@@ -113,6 +117,9 @@ public class LectionForm {
 
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 List<Classroom> freeClassroom = session.createQuery(hql).getResultList();
+
+                StudentGroup group = session.get(StudentGroup.class, groupComboBox.getSelectedItem());
+                freeClassroom.removeIf(c -> group.getKolStudent() > c.getNumberOfSeats());
                 for (Classroom c : freeClassroom) {
                     classroomComboBox.addItem(c.getClassroomName());
                 }
@@ -130,19 +137,23 @@ public class LectionForm {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int primaryKey;
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                Transaction transaction = session.beginTransaction();
+                try {
+                    int primaryKey;
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
 
-                for(Integer i : table.getSelectedRows()) {
-                    primaryKey = (int) table.getValueAt(i, -1);
-                    Lecture lecture = session.get(Lecture.class, primaryKey);
-                    session.delete(lecture);
+                    for(Integer i : table.getSelectedRows()) {
+                        primaryKey = (int) table.getValueAt(i, -1);
+                        Lecture lecture = session.get(Lecture.class, primaryKey);
+                        session.delete(lecture);
+                    }
+
+                    transaction.commit();
+                    session.close();
+                    displayData(delFacultyComboBox, delCourseComboBox, delGroupComboBox, table);
+                } catch (Exception ex) {
+                    System.err.println("Нет элементов для удаления\n" + ex.getMessage());
                 }
-
-                transaction.commit();
-                session.close();
-                displayData(delFacultyComboBox, delCourseComboBox, delGroupComboBox, table);
             }
         });
 

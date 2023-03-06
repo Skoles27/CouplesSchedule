@@ -25,13 +25,6 @@ public class ComboBoxService {
         }
     }
 
-    public static void updateComboBoxTeacher(JComboBox comboBox) {
-        comboBox.removeAllItems();
-        for (Teacher t : getTeacherCriteriaQueryList()) {
-            comboBox.addItem(t.getFio());
-        }
-    }
-
     public static void updateComboBoxTeacher(JComboBox disciplineCB, JComboBox updateComboBox) {
         updateComboBox.removeAllItems();
         String discipline = (String) disciplineCB.getSelectedItem();
@@ -44,7 +37,8 @@ public class ComboBoxService {
         session.close();
     }
 
-    public static void updateComboBoxClassroom(JComboBox classroomCB, JTextField universityBuilding, JTextField numberOfSeats) {
+    public static void updateComboBoxClassroom(JComboBox classroomCB, JTextField universityBuilding,
+                                               JTextField numberOfSeats) {
         classroomCB.removeAllItems();
         universityBuilding.removeAll();
         numberOfSeats.removeAll();

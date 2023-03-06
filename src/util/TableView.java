@@ -10,7 +10,7 @@ public class TableView extends AbstractTableModel {
     public TableView(List<Lecture> lectures) {
         this.lectures = lectures;
     }
-    @Override // Формируем названия колонок
+    @Override
     public String getColumnName (int col){
         String colName="";
         if (col==0) colName = "День";
@@ -21,13 +21,13 @@ public class TableView extends AbstractTableModel {
         if (col==5) colName = "Преподаватель";
         return colName;
     }
-    @Override // Определяем количество строк
+    @Override
     public int getRowCount() { return lectures.size(); }
-    @Override // Определяем количество колонок
+    @Override
     public int getColumnCount() { return 6; }
-    @Override // Определяем, что будем выводить в ячейках
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Lecture l = lectures.get(rowIndex);// - startPosition);
+        Lecture l = lectures.get(rowIndex);
         Object toReturn = null;
         switch (columnIndex) {
             case 0:

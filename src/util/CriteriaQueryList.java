@@ -21,17 +21,6 @@ public class CriteriaQueryList {
         return list;
     }
 
-    public static List<Teacher> getTeacherCriteriaQueryList() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
-        Root<Teacher> root = query.from(Teacher.class);
-        query.select(root);
-        List<Teacher> list = session.createQuery(query).getResultList();
-        session.close();
-        return list;
-    }
-
     public static List<Discipline> getDisciplineCriteriaQueryList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -50,17 +39,6 @@ public class CriteriaQueryList {
         Root<Classroom> root = query.from(Classroom.class);
         query.select(root);
         List<Classroom> list = session.createQuery(query).getResultList();
-        session.close();
-        return list;
-    }
-
-    public static List<StudentGroup> getGroupCriteriaQueryList() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<StudentGroup> query = builder.createQuery(StudentGroup.class);
-        Root<StudentGroup> root = query.from(StudentGroup.class);
-        query.select(root);
-        List<StudentGroup> list = session.createQuery(query).getResultList();
         session.close();
         return list;
     }

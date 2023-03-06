@@ -56,6 +56,7 @@ public class MainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 secondFrame.setVisible(false);
                 mainFrame.setVisible(true);
+                updateComboBoxFaculty(mainForm.facultyComboBox);
             }
         });
 
@@ -64,6 +65,8 @@ public class MainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 secondFrame.setVisible(false);
                 lectionFrame.setVisible(true);
+                updateComboBoxFaculty(lectionForm.facultyComboBox);
+                updateComboBoxFaculty(lectionForm.delFacultyComboBox);
             }
         });
 
