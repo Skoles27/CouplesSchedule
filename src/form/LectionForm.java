@@ -130,7 +130,19 @@ public class LectionForm {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int primaryKey;
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Transaction transaction = session.beginTransaction();
 
+                for(Integer i : table.getSelectedRows()) {
+                    primaryKey = (int) table.getValueAt(i, -1);
+                    Lecture lecture = session.get(Lecture.class, primaryKey);
+                    session.delete(lecture);
+                }
+
+                transaction.commit();
+                session.close();
+                displayData(delFacultyComboBox, delCourseComboBox, delGroupComboBox, table);
             }
         });
 

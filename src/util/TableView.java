@@ -18,14 +18,13 @@ public class TableView extends AbstractTableModel {
         if (col==2) colName = "Время начало";
         if (col==3) colName = "Аудитория";
         if (col==4) colName = "Дисциплина";
-        if (col==5) colName = "Группа";
-        if (col==6) colName = "Преподаватель";
+        if (col==5) colName = "Преподаватель";
         return colName;
     }
     @Override // Определяем количество строк
     public int getRowCount() { return lectures.size(); }
     @Override // Определяем количество колонок
-    public int getColumnCount() { return 7; }
+    public int getColumnCount() { return 6; }
     @Override // Определяем, что будем выводить в ячейках
     public Object getValueAt(int rowIndex, int columnIndex) {
         Lecture l = lectures.get(rowIndex);// - startPosition);
@@ -47,9 +46,6 @@ public class TableView extends AbstractTableModel {
                 toReturn = l.getDiscipline().getDisciplineName();
                 break;
             case 5:
-                toReturn = l.getStudentGroup().getGroupName();
-                break;
-            case 6:
                 toReturn = l.getTeacher().getFio();
                 break;
             default:
