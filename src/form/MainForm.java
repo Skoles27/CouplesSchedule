@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static util.ComboBoxService.updateComboBoxDiscipline;
 import static util.ComboBoxService.updateComboBoxFaculty;
 
 public class MainForm extends JFrame {
@@ -67,6 +68,7 @@ public class MainForm extends JFrame {
                 lectionFrame.setVisible(true);
                 updateComboBoxFaculty(lectionForm.facultyComboBox);
                 updateComboBoxFaculty(lectionForm.delFacultyComboBox);
+                updateComboBoxDiscipline(lectionForm.disciplineComboBox);
             }
         });
 

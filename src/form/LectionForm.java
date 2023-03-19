@@ -23,7 +23,7 @@ public class LectionForm {
     private JComboBox dayComboBox;
     private JComboBox lectionNumComboBox;
     private JComboBox classroomComboBox;
-    private JComboBox disciplineComboBox;
+    protected JComboBox disciplineComboBox;
     private JComboBox teacherComboBox;
     protected JComboBox delFacultyComboBox;
     private JComboBox delCourseComboBox;
