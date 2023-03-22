@@ -68,10 +68,11 @@ public class LectionForm {
                         timeStart = "14:40";
                     }
 
-                    boolean exists = session.createQuery("from Lecture where dayOfTheWeek = '" + day +
-                            "' AND lectureNumber = " + lNum).setMaxResults(1).uniqueResult() != null;
+                    String hql = "FROM Lecture WHERE studentGroup = '" + group.getGroupName() +
+                            "' AND dayOfTheWeek = '" + day + "' AND lectureNumber = '" + lNum + "'";
+                    List<Lecture> count = session.createQuery(hql).getResultList();
 
-                    if (exists) {
+                    if (count.size() > 0) {
                         infoLabel.setText("Ошибка: Лекция в этот день и номер пары уже существует!");
                         Color color = new Color(0xB20700);
                         infoLabel.setForeground(color);
